@@ -51,11 +51,29 @@ if (isServer) {
   logger = pino(config, transport);
 } else {
   // Client-side logging (Browser)
-  // Pino automatically falls back to console in the browser
+  // Forward logs to Main process via IPC if available
   logger = pino({
     ...config,
     browser: {
       asObject: true,
+      transmit: {
+        level: 'info',
+        send: (level, logEvent) => {
+          const msg = logEvent.messages[0];
+          // Use tempoApi bridge if available
+          if (typeof window !== 'undefined' && (window as any).tempoApi?.sendLog) {
+            (window as any).tempoApi.sendLog({
+              level: pino.levels.values[level],
+              msg: typeof msg === 'string' ? msg : JSON.stringify(msg),
+              ...logEvent,
+            }).catch(err => console.error('Failed to send log to Main:', err));
+          }
+          // Still log to console for development
+          if (config.level === 'debug') {
+            console[level === 'error' ? 'error' : 'log'](msg, logEvent.messages.slice(1));
+          }
+        },
+      },
     },
   });
 }

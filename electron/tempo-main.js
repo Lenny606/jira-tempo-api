@@ -1,5 +1,7 @@
 import { ipcMain } from 'electron';
 import { z } from 'zod';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 const TEMPO_BASE_URL = 'https://api.tempo.io/4';
 
@@ -112,5 +114,41 @@ export function setupTempoIpc() {
 
   ipcMain.handle('tempo:deleteWorklog', async (event, id) => {
     return await client.deleteWorklog(id);
+  });
+
+  // Log Handlers
+  const LOG_DIR = path.join(process.cwd(), 'logs');
+  const ERROR_LOG = path.join(LOG_DIR, 'error.log');
+
+  ipcMain.handle('log:list', async () => {
+    try {
+      const data = await fs.readFile(ERROR_LOG, 'utf8');
+      return data.split('\n').filter(Boolean).map(line => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          return { msg: line, time: new Date().toISOString(), level: 30 };
+        }
+      }).reverse(); // Latest logs first
+    } catch (err) {
+      if (err.code === 'ENOENT') return [];
+      throw err;
+    }
+  });
+
+  ipcMain.handle('log:write', async (event, { level, msg, ...rest }) => {
+    const entry = JSON.stringify({
+      time: new Date().toISOString(),
+      level,
+      msg,
+      process: 'renderer',
+      ...rest
+    }) + '\n';
+    
+    await fs.mkdir(LOG_DIR, { recursive: true });
+    await fs.appendFile(ERROR_LOG, entry);
+    
+    // Also log to console for debugging
+    console.log(`[RENDERER] ${msg}`, rest);
   });
 }

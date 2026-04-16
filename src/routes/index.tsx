@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { tempoClient } from '../lib/api';
@@ -20,13 +20,20 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 p-8">
-      <header className="max-w-4xl mx-auto mb-12 flex justify-between items-center">
+      <header className="max-w-4xl mx-auto mb-12 flex justify-between items-start">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
             Tempo API
           </h1>
           <p className="text-zinc-400 mt-2">Jira & Tempo Integration</p>
         </div>
+        <Link 
+          to="/system/logs"
+          className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-lg text-xs font-medium border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition-all flex items-center gap-2"
+        >
+          <span className="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span>
+          System Logs
+        </Link>
       </header>
 
       <main className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">

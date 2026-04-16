@@ -17,4 +17,7 @@ window.tempoApi = {
   createWorklog: (payload) => ipcRenderer.invoke('tempo:createWorklog', payload),
   updateWorklog: (id, payload) => ipcRenderer.invoke('tempo:updateWorklog', { id, payload }),
   deleteWorklog: (id) => ipcRenderer.invoke('tempo:deleteWorklog', id),
+  // Logging Extensions
+  listLogs: () => ipcRenderer.invoke('log:list'),
+  sendLog: (log) => ipcRenderer.invoke('log:write', log),
 };

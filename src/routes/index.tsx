@@ -15,11 +15,6 @@ function Index() {
           </h1>
           <p className="text-zinc-400 mt-2">Jira & Tempo Integration</p>
         </div>
-        <div className="flex gap-4">
-          <div className="px-4 py-2 bg-zinc-900 rounded-lg border border-zinc-800 text-sm font-medium">
-            Project: <span className="text-blue-400">Jira Tempo API</span>
-          </div>
-        </div>
       </header>
 
       <main className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -65,7 +60,7 @@ function Index() {
           </div>
         </section>
       </main>
-      
+
       <footer className="max-w-4xl mx-auto mt-12 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-xs">
         &copy; 2026 Tempo API • Powered by TanStack & Gemini
       </footer>

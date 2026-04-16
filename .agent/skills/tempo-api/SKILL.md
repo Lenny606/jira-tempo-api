@@ -52,7 +52,29 @@ If the task involves:
 > [!WARNING]
 > **Constraint Check**: Ensure you never mix Tempo endpoints with Jira endpoints (`/rest/api/3`) unless explicitly requested to cross-reference data. This skill is optimized for standalone Tempo usage.
 
+## Troubleshooting & Self-Fixing
+
+If a Tempo API operation fails, you should proactively check the logs and attempt to diagnose the issue using the built-in recovery utility.
+
+### Automated Diagnostics
+1.  **Run Recovery Script**: If you encounter an error (e.g., rejection from `tempo_crud.py` or a network timeout), run:
+    ```bash
+    python .agent/skills/tempo-api/scripts/recover.py
+    ```
+2.  **Analyze Report**: The script will parse `logs/error.log` and provide a diagnostic report for common errors (401, 403, 404, 429).
+3.  **Self-Fix**:
+    -   If the report identifies a **401 Authentication Error**, verify the `.env` file and check if `TEMPO_API_TOKEN` is set correctly.
+    -   If a **404 Resource Not Found** is identified, verify the IDs you are using.
+
+### Common Error Codes
+- `401 Unauthorized`: Token is missing or invalid. Note: Tempo tokens are DIFFERENT from Jira tokens.
+- `403 Forbidden`: Permission issue. Ensure your token was created with the correct scopes.
+- `429 Too Many Requests`: Rate limit reached. Wait 60s.
+
+---
+
 ## Reference Materials
 
 - **Detailed Endpoints**: See [api_reference.md](references/api_reference.md)
 - **Implementation Pattern**: See [tempo_crud.py](scripts/tempo_crud.py) for a code example.
+- **Recovery Logic**: See [recover.py](scripts/recover.py) for diagnostic logic.

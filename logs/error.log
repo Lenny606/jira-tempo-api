@@ -2,3 +2,11 @@
 {"time":"2026-04-16T11:51:30.883Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}
 {"time":"2026-04-16T12:02:04.469Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}
 {"time":"2026-04-16T12:02:05.147Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}
+{"time":"2026-04-16T12:13:59.801Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:13:59.798Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:13:59.805Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:13:59.801Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:13:59.815Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:13:59.811Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:13:59.814Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:13:59.809Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:14:04.726Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:14:04.724Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:14:04.736Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:14:04.728Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:14:04.757Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:14:04.755Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}
+{"time":"2026-04-16T12:14:04.769Z","level":{"label":"error","value":50},"msg":"{\"error\":{}}","process":"renderer","ts":"2026-04-16T12:14:04.761Z","messages":[{"error":{}},"Root Route Error Boundary"],"bindings":[]}

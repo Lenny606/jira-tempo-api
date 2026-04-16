@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { tempoClient } from '../lib/api';
+import { ChevronRight } from 'lucide-react';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -65,18 +66,28 @@ function Index() {
                   <span className="opacity-80 break-words">{(error as Error).message}</span>
                 </div>
               ) : (
-                <div className="flex justify-between items-end">
-                  <div>
-                    <div className="text-zinc-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                      Current Month
+                <div className="flex flex-col gap-4">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <div className="text-zinc-500 text-xs uppercase tracking-wider font-semibold mb-1">
+                        Current Month
+                      </div>
+                      <div className="text-2xl font-bold text-emerald-400">
+                        {worklogs?.results.length || 0} Entries
+                      </div>
                     </div>
-                    <div className="text-2xl font-bold text-emerald-400">
-                      {worklogs?.results.length || 0} Entries
+                    <div className="text-xs text-zinc-500 font-mono">
+                      {firstDay} to {lastDay}
                     </div>
                   </div>
-                  <div className="text-xs text-zinc-500 font-mono">
-                    {firstDay} to {lastDay}
-                  </div>
+                  
+                  <Link 
+                    to="/worklogs"
+                    className="w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl text-sm font-semibold transition-all border border-emerald-500/20 flex items-center justify-center gap-2 group"
+                  >
+                    View Detailed Report
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               )}
             </div>

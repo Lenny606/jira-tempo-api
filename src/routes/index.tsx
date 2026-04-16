@@ -1,6 +1,11 @@
-import React from 'react'
+import { createFileRoute } from '@tanstack/react-router';
+import React from 'react';
 
-function App() {
+export const Route = createFileRoute('/')({
+  component: Index,
+});
+
+function Index() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 p-8">
       <header className="max-w-4xl mx-auto mb-12 flex justify-between items-center">
@@ -65,7 +70,5 @@ function App() {
         &copy; 2026 Tempo API • Powered by TanStack & Gemini
       </footer>
     </div>
-  )
+  );
 }
-
-export default App

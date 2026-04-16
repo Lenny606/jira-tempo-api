@@ -1,0 +1,85 @@
+{
+    "name": "jira-tempo-api",
+    "version": "1.0.0",
+    "description": "Desktop Jira Tempo API",
+    "author": "Tomas",
+    "private": true,
+    "type": "module",
+    "imports": {
+        "#/*": "./src/*"
+    },
+    "scripts": {
+        "dev": "vite dev --port 3000",
+        "time": "vite dev --port 3000",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "vitest run",
+        "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron .\"",
+        "electron:build": "npm run build && electron-builder"
+    },
+    "main": "electron/main.js",
+    "dependencies": {
+        "@tailwindcss/vite": "^4.1.18",
+        "@tanstack/ai": "^0.6.3",
+        "@tanstack/ai-gemini": "^0.8.0",
+        "@tanstack/ai-openai": "^0.6.0",
+        "@tanstack/ai-react": "^0.6.4",
+        "@tanstack/react-devtools": "latest",
+        "@tanstack/react-query": "^5.90.21",
+        "@tanstack/react-router": "latest",
+        "@tanstack/react-router-devtools": "latest",
+        "@tanstack/react-router-ssr-query": "latest",
+        "@tanstack/react-start": "latest",
+        "@tanstack/router-plugin": "^1.132.0",
+        "lucide-react": "^0.545.0",
+        "nitro": "npm:nitro-nightly@latest",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "tailwindcss": "^4.1.18"
+    },
+    "devDependencies": {
+        "@tailwindcss/typography": "^0.5.16",
+        "@tanstack/devtools-vite": "latest",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/node": "^22.10.2",
+        "@types/react": "^19.2.0",
+        "@types/react-dom": "^19.2.0",
+        "@vitejs/plugin-react": "^5.1.4",
+        "concurrently": "^9.2.1",
+        "electron": "^41.2.0",
+        "electron-builder": "^26.8.1",
+        "jsdom": "^28.1.0",
+        "msw": "^2.12.10",
+        "typescript": "^5.7.2",
+        "vite": "^7.3.1",
+        "vite-tsconfig-paths": "^5.1.4",
+        "vitest": "^3.0.5",
+        "wait-on": "^9.0.5"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "lightningcss"
+        ]
+    },
+    "build": {
+        "appId": "com.tempoapi.app",
+        "productName": "Tempo API",
+        "directories": {
+            "output": "dist-electron"
+        },
+        "files": [
+            "package.json",
+            "electron/**/*",
+            ".output/**/*"
+        ],
+        "linux": {
+            "target": [
+                "AppImage"
+            ]
+        }
+    }
+}

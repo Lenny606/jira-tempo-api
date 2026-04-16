@@ -12,11 +12,16 @@ export const jiraClient = {
 };
 
 /**
- * Tempo API Client Skeleton
+ * Tempo API Client
+ * Using Electron IPC for secure Main Process calls
  */
 export const tempoClient = {
-  getWorklogs: async (fromDate: string, toDate: string) => {
-    // TODO: Implement Tempo worklogs retrieval
-    return [];
-  }
+  getWorklogs: (params: { from: string; to: string }) => 
+    (window as any).tempoApi.listWorklogs(params),
+  createWorklog: (payload: any) => 
+    (window as any).tempoApi.createWorklog(payload),
+  updateWorklog: (id: string, payload: any) => 
+    (window as any).tempoApi.updateWorklog(id, payload),
+  deleteWorklog: (id: string) => 
+    (window as any).tempoApi.deleteWorklog(id),
 };

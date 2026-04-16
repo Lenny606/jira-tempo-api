@@ -1,6 +1,10 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import * as dotenv from 'dotenv';
+import { setupTempoIpc } from './tempo-main.js';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +37,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  setupTempoIpc();
   createWindow();
 
   app.on('activate', () => {

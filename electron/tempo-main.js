@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const TEMPO_BASE_URL = 'https://api.tempo.io/4';
+const TEMPO_BASE_URL = process.env.TEMPO_BASE_URL || 'https://api.tempo.io/4';
 
 /**
  * Zod Schemas for Validation
@@ -33,6 +33,10 @@ export class TempoMainClient {
 
   async request(path, options = {}) {
     const url = `${TEMPO_BASE_URL}${path}`;
+    const method = options.method || 'GET';
+    
+    console.log(`[Tempo API] Sending ${method} request to ${url}`);
+
     const headers = {
       'Authorization': `Bearer ${this.getToken()}`,
       'Content-Type': 'application/json',
@@ -40,6 +44,8 @@ export class TempoMainClient {
     };
 
     const response = await fetch(url, { ...options, headers });
+
+    console.log(`[Tempo API] Response: ${response.status} ${response.statusText}`);
 
     if (!response.ok) {
       const errorBody = await response.text();
@@ -97,23 +103,66 @@ export class TempoMainClient {
   }
 }
 
+/**
+ * Helper to write logs to disk from Main process
+ */
+async function writeMainLog(level, msg, extra = {}) {
+  const LOG_DIR = path.join(process.cwd(), 'logs');
+  const ERROR_LOG = path.join(LOG_DIR, 'error.log');
+  
+  const entry = JSON.stringify({
+    time: new Date().toISOString(),
+    level,
+    msg,
+    process: 'main',
+    ...extra
+  }) + '\n';
+  
+  try {
+    await fs.mkdir(LOG_DIR, { recursive: true });
+    await fs.appendFile(ERROR_LOG, entry);
+  } catch (err) {
+    console.error('Failed to write log file:', err);
+  }
+}
+
 export function setupTempoIpc() {
   const client = new TempoMainClient();
 
   ipcMain.handle('tempo:listWorklogs', async (event, { from, to }) => {
-    return await client.listWorklogs(from, to);
+    try {
+      return await client.listWorklogs(from, to);
+    } catch (err) {
+      await writeMainLog(50, `Tempo List Error: ${err.message}`, { path: '/worklogs', from, to });
+      throw err;
+    }
   });
 
   ipcMain.handle('tempo:createWorklog', async (event, payload) => {
-    return await client.createWorklog(payload);
+    try {
+      return await client.createWorklog(payload);
+    } catch (err) {
+      await writeMainLog(50, `Tempo Create Error: ${err.message}`, { payload });
+      throw err;
+    }
   });
 
   ipcMain.handle('tempo:updateWorklog', async (event, { id, payload }) => {
-    return await client.updateWorklog(id, payload);
+    try {
+      return await client.updateWorklog(id, payload);
+    } catch (err) {
+      await writeMainLog(50, `Tempo Update Error: ${err.message}`, { id, payload });
+      throw err;
+    }
   });
 
   ipcMain.handle('tempo:deleteWorklog', async (event, id) => {
-    return await client.deleteWorklog(id);
+    try {
+      return await client.deleteWorklog(id);
+    } catch (err) {
+      await writeMainLog(50, `Tempo Delete Error: ${err.message}`, { id });
+      throw err;
+    }
   });
 
   // Log Handlers

@@ -1,1 +1,4 @@
 {"level":50,"time":"2026-04-16T12:00:00.000Z","type":"server_error","msg":"Failed to list worklogs","error":{"status":401,"response":"Unauthorized"}}
+{"time":"2026-04-16T11:51:30.883Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}
+{"time":"2026-04-16T12:02:04.469Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}
+{"time":"2026-04-16T12:02:05.147Z","level":50,"msg":"Tempo List Error: Tempo API error: 401 Unauthorized","process":"main","path":"/worklogs","from":"2026-03-31","to":"2026-04-29"}

@@ -60,7 +60,10 @@ function Index() {
               {isLoading ? (
                 <div className="text-zinc-500 text-xs animate-pulse">Loading worklogs...</div>
               ) : error ? (
-                <div className="text-red-400 text-xs">Error connecting to Tempo</div>
+                <div className="text-red-400 text-xs flex flex-col gap-1">
+                  <span className="font-bold">Connection Error:</span>
+                  <span className="opacity-80 break-words">{(error as Error).message}</span>
+                </div>
               ) : (
                 <div className="flex justify-between items-end">
                   <div>

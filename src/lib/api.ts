@@ -11,17 +11,30 @@ export const jiraClient = {
   }
 };
 
+function ensureTempoApi() {
+  if (!(window as any).tempoApi) {
+    throw new Error('Tempo API is not available. Ensure you are running the app in Electron (npm run electron:dev).');
+  }
+  return (window as any).tempoApi;
+}
+
 /**
  * Tempo API Client
- * Using Electron IPC for secure Main Process calls
  */
 export const tempoClient = {
-  getWorklogs: (params: { from: string; to: string }) => 
-    (window as any).tempoApi.listWorklogs(params),
+  getWorklogs: async (params: { from: string; to: string }) => {
+    try {
+      return await ensureTempoApi().listWorklogs(params);
+    } catch (err: any) {
+      console.error('[Frontend API] getWorklogs failed:', err);
+      // Ensure we re-throw the actual error message
+      throw err;
+    }
+  },
   createWorklog: (payload: any) => 
-    (window as any).tempoApi.createWorklog(payload),
+    ensureTempoApi().createWorklog(payload),
   updateWorklog: (id: string, payload: any) => 
-    (window as any).tempoApi.updateWorklog(id, payload),
+    ensureTempoApi().updateWorklog(id, payload),
   deleteWorklog: (id: string) => 
-    (window as any).tempoApi.deleteWorklog(id),
+    ensureTempoApi().deleteWorklog(id),
 };

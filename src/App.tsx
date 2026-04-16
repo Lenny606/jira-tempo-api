@@ -6,7 +6,7 @@ function App() {
       <header className="max-w-4xl mx-auto mb-12 flex justify-between items-center">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-            Task Tracker
+            Tempo API
           </h1>
           <p className="text-zinc-400 mt-2">Jira & Tempo Integration</p>
         </div>
@@ -62,7 +62,7 @@ function App() {
       </main>
       
       <footer className="max-w-4xl mx-auto mt-12 pt-8 border-t border-zinc-900 text-center text-zinc-600 text-xs">
-        &copy; 2026 Task Tracker • Powered by TanStack & Gemini
+        &copy; 2026 Tempo API • Powered by TanStack & Gemini
       </footer>
     </div>
   )
